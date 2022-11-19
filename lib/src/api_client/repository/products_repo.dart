@@ -35,6 +35,10 @@ class ProductsRepo {
     );
   }
 
+  Future<Response> getProductByCategory(int id) async {
+    return await apiClient.getData(url: ApiConstant.productByCategoryPath(id) , token: token);
+  }
+
   Future<Response> changeFavorite(Map<String, dynamic> data) async {
     return await Dio().post(ApiConstant.favoritePath(),
         data: data,

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:ecommerce_app/src/core/api_constant.dart';
 import 'package:ecommerce_app/src/core/functions/cache_helper.dart';
 import 'package:ecommerce_app/src/model/user_model.dart';
 import 'package:ecommerce_app/src/view/pages/app_layout_controller.dart';
@@ -41,7 +42,7 @@ class ProfileController extends GetxController {
   void logOut() async {
     isLoading.value = true;
     update();
-    final result = await Dio().post('http://192.168.1.15:8000/api/logoutall/',
+    final result = await Dio().post('${ApiConstant.baseUrl}/api/logoutall/',
         options: Options(headers: {'Authorization': 'token $token'}));
     await CacheHelper.removeData(key: 'token');
     if (result.statusCode == 204) {

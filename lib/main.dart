@@ -28,6 +28,10 @@ class MyApp extends StatelessWidget
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          elevation: 0.0,
+        ),
+        scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.deepOrange,
       ),
       initialBinding: AppBinding(),

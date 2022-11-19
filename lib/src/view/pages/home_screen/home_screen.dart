@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/size_config.dart';
 import 'package:ecommerce_app/src/core/api_constant.dart';
+import 'package:ecommerce_app/src/core/app_constant.dart';
 import 'package:ecommerce_app/src/view/pages/home_screen/products_controller.dart';
 import 'package:ecommerce_app/src/view/pages/search_screen/search_screen.dart';
 import 'package:flutter/material.dart';
@@ -44,12 +45,41 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              Text(
-                "Products",
-                style: TextStyle(
-                  fontSize: SizeConfig.font20,
-                  fontWeight: FontWeight.w800,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Products",
+                    style: TextStyle(
+                      fontSize: SizeConfig.font20,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: Row(
+                        children: const [
+                          Text(
+                            "See More",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.blue,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
               ),
               GetBuilder<ProductsController>(
                 init: Get.find<ProductsController>(),
@@ -179,11 +209,11 @@ class BuildGridProduct extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '${productModel.newPrice}',
-                    maxLines: 2,
+                    'EGP ${productModel.newPrice}',
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: Colors.black,
+                    style: TextStyle(
+                      color: AppConstant().kPrimaryColor,
                     ),
                   ),
                   const SizedBox(

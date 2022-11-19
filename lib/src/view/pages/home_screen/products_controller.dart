@@ -15,6 +15,7 @@ class ProductsController extends GetxController {
 
   List<ProductModel> products = [];
   List<FavoriteModel> favoriteProductsModel = [];
+  List<ProductModel> productByCategory = [];
 
   Map<int, bool> favorites = {};
 
@@ -33,6 +34,8 @@ class ProductsController extends GetxController {
     } else {
       showToast("Error", ToastStates.ERROR);
     }
+    getFavorites();
+
     isLoading.value = false;
     update();
   }
@@ -43,16 +46,13 @@ class ProductsController extends GetxController {
     productsRepo.changeFavorite({"id": '$id'}).then((value) {
       showToast(value.data['status'], ToastStates.SUCCESS);
 
-      if (favorites[id] == false) {
-        print("yes");
-        getFavorites();
-      }
+      getFavorites();
     });
   }
 
   void getFavorites() async {
-    isLoading.value = true;
-    update();
+/*    isLoading.value = true;
+    update();*/
     favoriteProductsModel = [];
 
     final response = await productsRepo.getFavorites();
@@ -64,6 +64,24 @@ class ProductsController extends GetxController {
       print(response.data);
     }
 
+    update();
+  }
+
+  void getProductByFavorite(int id) async {
+    productByCategory = [];
+
+    isLoading.value = true;
+    update();
+
+    final response = await productsRepo.getProductByCategory(id);
+
+    if (response.statusCode == 200) {
+      productByCategory = List<ProductModel>.from(
+          (response.data as List).map((e) => ProductModel.fromJson(e)));
+    } else {
+      print(response.data);
+    }
+
     isLoading.value = false;
     update();
   }
@@ -71,7 +89,6 @@ class ProductsController extends GetxController {
   @override
   void onInit() {
     getProducts();
-    getFavorites();
     super.onInit();
   }
 }

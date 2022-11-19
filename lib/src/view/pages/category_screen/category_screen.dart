@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/size_config.dart';
 import 'package:ecommerce_app/src/view/pages/category_screen/category_controller.dart';
+import 'package:ecommerce_app/src/view/pages/products_by_category/products_by_category.dart';
 import 'package:ecommerce_app/src/view/widgets/cached_image_network.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +12,7 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CategoryController>(
-      init: Get.put(CategoryController(Get.find())),
+      init: Get.find<CategoryController>(),
       builder: (controller) {
         return Scaffold(
           backgroundColor: Colors.white,
@@ -40,7 +41,7 @@ class CategoryScreen extends StatelessWidget {
 
                       return InkWell(
                         onTap: () {
-                          ///
+                          Get.to(() => ProductByCategoryScreen(categoryId: model.id));
                         },
                         child: Card(
                           child: Stack(
