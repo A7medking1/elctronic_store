@@ -1,7 +1,9 @@
+import 'package:ecommerce_app/src/core/app_constant.dart';
 import 'package:ecommerce_app/src/view/pages/profile_screen/profile_controller.dart';
 import 'package:ecommerce_app/src/view/widgets/default_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quickalert/quickalert.dart';
 
 import '../../../../size_config.dart';
 
@@ -48,7 +50,18 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         DefaultButton(
                           text: 'Logout'.toUpperCase(),
-                          press: () => controller.logOut(),
+                          press: () {
+                            QuickAlert.show(
+                              context: context,
+                              type: QuickAlertType.confirm,
+                              barrierDismissible: false,
+                              confirmBtnColor: AppConstant().kPrimaryColor,
+                              animType: QuickAlertAnimType.slideInUp,
+                              onConfirmBtnTap: () {
+                                controller.logOut();
+                              },
+                            );
+                          },
                         ),
                       ],
                     ),

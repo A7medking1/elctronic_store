@@ -2,19 +2,26 @@ import 'package:ecommerce_app/src/view/pages/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/app_constant.dart';
+import '../../widgets/build_grid_view_product.dart';
 import '../home_screen/products_controller.dart';
+import '../product_detail_screen/product_detail_screen.dart';
 
 class ProductByCategoryScreen extends StatelessWidget {
   final int categoryId;
+  final String title;
 
-  const ProductByCategoryScreen({Key? key, required this.categoryId})
+  const ProductByCategoryScreen(
+      {Key? key, required this.categoryId, required this.title})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Get.find<ProductsController>().getProductByFavorite(categoryId);
+    Get.find<ProductsController>().getProductByCategory(categoryId);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(title.toUpperCase()),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: GetBuilder<ProductsController>(
@@ -35,12 +42,22 @@ class ProductByCategoryScreen extends StatelessWidget {
                     crossAxisCount: 2,
                     mainAxisSpacing: 1.0,
                     crossAxisSpacing: 1.0,
-                    childAspectRatio: 1.3 / 1.4,
+                    childAspectRatio: 1.3 / 1.5,
                     children: List.generate(
                       controller.productByCategory.length,
                       (index) {
-                        return BuildGridProduct(
-                          productModel: controller.productByCategory[index],
+                        return InkWell(
+                          onTap: () {
+                            Get.to(() => ProductDetailScreen(
+                                productModel:
+                                controller.productByCategory[index]));
+                          },
+                          // hoverColor: AppConstant().kPrimaryColor,
+                          //highlightColor: AppConstant().kPrimaryColor,
+                          splashColor: AppConstant().kPrimaryColor,
+                          child: BuildGridProduct(
+                            productModel: controller.productByCategory[index],
+                          ),
                         );
                       },
                     ),

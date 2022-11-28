@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/src/core/app_constant.dart';
 import 'package:ecommerce_app/src/view/pages/app_layout_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -34,7 +35,7 @@ class AppLayout extends StatelessWidget {
                 child: SvgPicture.asset(
                   'assets/icons/home.svg',
                   fit: BoxFit.contain,
-                  color: Colors.black,
+                  color: AppConstant().kPrimaryColor,
                   width: 20,
                 ),
               ),
@@ -53,7 +54,7 @@ class AppLayout extends StatelessWidget {
                 child: SvgPicture.asset(
                   'assets/icons/category.svg',
                   fit: BoxFit.contain,
-                  color: Colors.black,
+                  color: AppConstant().kPrimaryColor,
                   width: 20,
                 ),
               ),
@@ -72,7 +73,7 @@ class AppLayout extends StatelessWidget {
                 child: SvgPicture.asset(
                   'assets/icons/favorite.svg',
                   fit: BoxFit.contain,
-                  color: Colors.black,
+                  color: AppConstant().kPrimaryColor,
                   width: 20,
                 ),
               ),
@@ -91,7 +92,7 @@ class AppLayout extends StatelessWidget {
                 child: SvgPicture.asset(
                   'assets/icons/setting.svg',
                   fit: BoxFit.contain,
-                  color: Colors.black,
+                  color: AppConstant().kPrimaryColor,
                   width: 20,
                 ),
               ),

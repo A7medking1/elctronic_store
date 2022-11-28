@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppConstant{
 
-   Color kPrimaryColor = const Color(0xFFFF7643);
+   Color kPrimaryColor =  Colors.deepOrange;
    Color kPrimaryLightColor = const Color(0xFFFFECDF);
    LinearGradient kPrimaryGradientColor = const LinearGradient(
     begin: Alignment.topLeft,

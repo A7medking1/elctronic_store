@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/api_constant.dart';
+import '../../../core/app_constant.dart';
+
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({Key? key}) : super(key: key);
 
@@ -15,10 +18,8 @@ class CategoryScreen extends StatelessWidget {
       init: Get.find<CategoryController>(),
       builder: (controller) {
         return Scaffold(
-          backgroundColor: Colors.white,
           appBar: AppBar(
             backgroundColor: Colors.white,
-            elevation: 0.0,
             title: Text(
               "Categories",
               style: GoogleFonts.lato(color: Colors.black),
@@ -33,23 +34,28 @@ class CategoryScreen extends StatelessWidget {
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: 3 / 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 5,
                     ),
                     itemBuilder: (context, index) {
                       final model = controller.categoryModel[index];
 
                       return InkWell(
                         onTap: () {
-                          Get.to(() => ProductByCategoryScreen(categoryId: model.id));
+                          Get.to(() => ProductByCategoryScreen(categoryId: model.id,title: model.title,));
                         },
                         child: Card(
+                          elevation: 20,
+                          shadowColor: AppConstant().kPrimaryColor.withOpacity(0.2),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadiusDirectional.circular(15)
+                          ),
                           child: Stack(
                             alignment: AlignmentDirectional.center,
                             children: [
                               CachedImages(
                                 //imageUrl: model.image,
-                                imageUrl: "http://192.168.1.15:8000${model.image}",
+                                imageUrl: ApiConstant.imagePath(model.image),
                                 fit: BoxFit.scaleDown,
                               ),
                               Text(

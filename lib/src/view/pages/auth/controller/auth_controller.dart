@@ -33,6 +33,8 @@ class AuthController extends GetxController {
 
       Get.offAll(() => const AppLayout());
     } else {
+      isLoading.value = false;
+      update();
       print(result.data);
       showToast("Please check your email or password", ToastStates.ERROR);
     }
