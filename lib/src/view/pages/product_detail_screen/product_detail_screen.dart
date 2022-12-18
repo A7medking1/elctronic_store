@@ -2,6 +2,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:ecommerce_app/src/core/api_constant.dart';
 import 'package:ecommerce_app/src/core/app_constant.dart';
 import 'package:ecommerce_app/src/model/product_model.dart';
+import 'package:ecommerce_app/src/view/pages/cart_screen/cart_controller.dart';
+import 'package:ecommerce_app/src/view/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +21,34 @@ class ProductDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(AppBar().preferredSize.height),
-        child: CustomAppBar(productModel: productModel),
+        child: CustomAppBarWidget(
+          title: "",
+          actions: [
+            GetBuilder(
+              init: Get.find<ProductsController>(),
+              builder: (controller) => InkWell(
+                onTap: () {
+                  controller.changeFavorite(productModel.id);
+                },
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(end: 20, top: 10),
+                  child: CircleAvatar(
+                    backgroundColor: controller.favorites[productModel.id]!
+                        ? Colors.deepOrange
+                        : Colors.grey,
+                    radius: 20,
+                    child: const Icon(
+                      Icons.favorite_border,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+          leadingBack: true,
+        ),
       ),
       body: SingleChildScrollView(
         child: FadeInUp(
@@ -116,14 +145,19 @@ class ProductDetailScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavBar(),
+      bottomNavigationBar: BottomNavBar(
+        productModel: productModel,
+      ),
     );
   }
 }
 
 class BottomNavBar extends StatelessWidget {
+  final ProductModel productModel;
+
   const BottomNavBar({
     Key? key,
+    required this.productModel,
   }) : super(key: key);
 
   @override
@@ -149,7 +183,7 @@ class BottomNavBar extends StatelessWidget {
             const EdgeInsetsDirectional.only(bottom: 20, start: 20, end: 30),
         child: GetBuilder<ProductsController>(
           init: Get.find<ProductsController>(),
-          builder: (controller) =>  Row(
+          builder: (controller) => Row(
             children: [
               TextButton(
                 onPressed: () => controller.setQuantity(false),
@@ -158,7 +192,7 @@ class BottomNavBar extends StatelessWidget {
               const SizedBox(
                 width: 5,
               ),
-               Text(
+              Text(
                 controller.quantity.toString(),
                 style: const TextStyle(fontSize: 30),
               ),
@@ -177,7 +211,12 @@ class BottomNavBar extends StatelessWidget {
                 height: 70,
                 width: 120,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.put(CartController(Get.find())).addToCart(
+                      prodId: productModel.id,
+                      quantity: controller.quantity,
+                    );
+                  },
                   child: const Text(
                     "Add To Cart",
                     style: TextStyle(
@@ -191,56 +230,6 @@ class BottomNavBar extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({
-    Key? key,
-    required this.productModel,
-  }) : super(key: key);
-
-  final ProductModel productModel;
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      //backgroundColor: Colors.grey,
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 15),
-        child: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 30,
-          ),
-        ),
-      ),
-      actions: [
-        GetBuilder(
-          init: Get.find<ProductsController>(),
-          builder: (controller) => InkWell(
-            onTap: () {
-              controller.changeFavorite(productModel.id);
-            },
-            child: Padding(
-              padding: const EdgeInsetsDirectional.only(end: 20, top: 10),
-              child: CircleAvatar(
-                backgroundColor: controller.favorites[productModel.id]!
-                    ? Colors.deepOrange
-                    : Colors.grey,
-                radius: 20,
-                child: const Icon(
-                  Icons.favorite_border,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

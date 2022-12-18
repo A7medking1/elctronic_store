@@ -22,4 +22,17 @@ class ApiConstant {
 
   static String productByCategoryPath(int id) =>
       "$baseUrl/api/products_by_category/?category_id=$id";
+
+
+  static String addToCartPath() => "$baseUrl/api/cart/add/";
+
+  static String increaseProductInCart(int id) => '$baseUrl/api/cart/increase_quantity/$id/';
+  static String reduceProductInCart(int id) => '$baseUrl/api/cart/reduce_quantity/$id/';
+
+
+  static String deleteProductFromCart(int id) => '$baseUrl/api/cart/delete/$id/';
+
+  static String cartPath() => "$baseUrl/api/cart/";
+
+
 }

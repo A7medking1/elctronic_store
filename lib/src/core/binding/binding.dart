@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/src/view/pages/app_layout_controller.dart';
+import 'package:ecommerce_app/src/view/pages/cart_screen/cart_controller.dart';
 import 'package:ecommerce_app/src/view/pages/category_screen/category_controller.dart';
 import 'package:ecommerce_app/src/view/pages/profile_screen/profile_controller.dart';
 import 'package:get/get.dart';
@@ -25,6 +26,7 @@ class AppBinding extends Bindings {
     Get.lazyPut(() => CategoryController(Get.find<ProductsRepo>()));
     Get.lazyPut(() => ProfileController(Get.find<ProductsRepo>()));
     Get.lazyPut(() => ProductsController(Get.find<ProductsRepo>()));
+    //Get.lazyPut(() => CartController(Get.find<ProductsRepo>()));
     // Get.lazyPut(() => SearchController(Get.find<ProductsRepo>()));
   }
 }

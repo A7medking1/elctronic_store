@@ -1,16 +1,14 @@
 import 'package:ecommerce_app/size_config.dart';
-import 'package:ecommerce_app/src/core/api_constant.dart';
 import 'package:ecommerce_app/src/core/app_constant.dart';
+import 'package:ecommerce_app/src/view/pages/cart_screen/cart_screen.dart';
 import 'package:ecommerce_app/src/view/pages/home_screen/products_controller.dart';
 import 'package:ecommerce_app/src/view/pages/product_detail_screen/product_detail_screen.dart';
 import 'package:ecommerce_app/src/view/pages/search_screen/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import '../../../model/product_model.dart';
 import '../../widgets/build_grid_view_product.dart';
-import '../../widgets/cached_image_network.dart';
+import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_slider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -19,24 +17,36 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Ecommerce App",
-            style: GoogleFonts.lobster(
-                fontSize: 20, color: Colors.deepOrangeAccent)),
-        iconTheme: const IconThemeData(color: Colors.black),
-        backgroundColor: Colors.white,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(AppBar().preferredSize.height),
+        child: CustomAppBarWidget(
+          title: 'Ecommerce App',
+          leadingBack: false,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
                 onPressed: () => Get.to(() => SearchScreen()),
                 icon: Icon(
                   Icons.search,
                   color: AppConstant().kPrimaryColor,
                   size: 30,
-                )),
-          )
-        ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                onPressed: () => Get.to(() => const CartScreen()),
+                icon: Icon(
+                  Icons.shopping_cart_outlined,
+                  color: AppConstant().kPrimaryColor,
+                  size: 30,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(
@@ -126,4 +136,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-

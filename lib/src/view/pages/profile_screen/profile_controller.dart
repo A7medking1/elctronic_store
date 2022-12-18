@@ -47,10 +47,10 @@ class ProfileController extends GetxController {
     await CacheHelper.removeData(key: 'token');
     if (result.statusCode == 204) {
       Get.offAll(() => const LoginScreen());
-
       Get.find<AppLayOutController>().currentIndex = 0;
-    } else {}
+    } else {
 
+    }
     isLoading.value = false;
     update();
   }

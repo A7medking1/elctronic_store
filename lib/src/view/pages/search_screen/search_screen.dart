@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/src/view/pages/search_screen/search_controller.dart';
 import 'package:ecommerce_app/src/view/widgets/cached_image_network.dart';
+import 'package:ecommerce_app/src/view/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,20 +18,9 @@ class SearchScreen extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: IconButton(
-              onPressed: () => Get.back(),
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                size: 30,
-              ),
-            ),
-          ),
-          iconTheme: const IconThemeData(color: Colors.black),
+        appBar: PreferredSize(
+          preferredSize:Size.fromHeight(AppBar().preferredSize.height),
+          child: const CustomAppBarWidget(title: 'Search', leadingBack: true,centerTitle: true,),
         ),
         body: GetBuilder<SearchController>(
           init: Get.put(SearchController(Get.find())),

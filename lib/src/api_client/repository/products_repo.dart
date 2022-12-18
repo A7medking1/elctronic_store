@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:ecommerce_app/src/api_client/ApiClient.dart';
 import 'package:ecommerce_app/src/core/api_constant.dart';
 import 'package:ecommerce_app/src/view/pages/auth/controller/auth_controller.dart';
+
+import '../ApiClient.dart';
 
 class ProductsRepo {
   final ApiClient apiClient;
@@ -36,7 +37,8 @@ class ProductsRepo {
   }
 
   Future<Response> getProductByCategory(int id) async {
-    return await apiClient.getData(url: ApiConstant.productByCategoryPath(id) , token: token);
+    return await apiClient.getData(
+        url: ApiConstant.productByCategoryPath(id), token: token);
   }
 
   Future<Response> changeFavorite(Map<String, dynamic> data) async {
@@ -46,4 +48,41 @@ class ProductsRepo {
           'Authorization': "token $token",
         }));
   }
+
+  Future<Response> addProductToCart(Map<String, dynamic> data) async {
+    return await Dio().post(ApiConstant.addToCartPath(),
+      data: data,
+        options: Options(headers: {
+          'Authorization': "token $token",
+        }));
+  }
+
+  Future<Response> getCarts() async {
+    return await apiClient.getData(
+      url: ApiConstant.cartPath(),
+      token: token,
+    );
+  }
+
+  Future<Response> increaseProductInCart(int id) async {
+    return await apiClient.getData(
+      url: ApiConstant.increaseProductInCart(id),
+      token: token,
+    );
+  }
+
+  Future<Response> reduceProductInCart(int id) async {
+    return await apiClient.getData(
+      url: ApiConstant.reduceProductInCart(id),
+      token: token,
+    );
+  }
+  Future<Response> deleteProductFromCart(int id) async {
+    return await apiClient.getData(
+      url: ApiConstant.deleteProductFromCart(id),
+      token: token,
+    );
+  }
+
+
 }

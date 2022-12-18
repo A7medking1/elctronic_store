@@ -4,15 +4,14 @@ import 'package:ecommerce_app/src/view/widgets/show_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:quickalert/widgets/quickalert_dialog.dart';
-
 import '../../../model/favorite_model.dart';
 import '../../../model/product_model.dart';
 
 
 
 
-class ProductsController extends GetxController {
+class ProductsController extends GetxController
+{
   final ProductsRepo productsRepo;
 
   ProductsController(this.productsRepo);
@@ -49,11 +48,6 @@ class ProductsController extends GetxController {
     isLoading.value = false;
     update();
   }
-
-
-
-
-
 
   void changeFavorite(int id) async {
     favorites[id] = !favorites[id]!;

@@ -2,6 +2,7 @@ import 'package:ecommerce_app/size_config.dart';
 import 'package:ecommerce_app/src/view/pages/category_screen/category_controller.dart';
 import 'package:ecommerce_app/src/view/pages/products_by_category/products_by_category.dart';
 import 'package:ecommerce_app/src/view/widgets/cached_image_network.dart';
+import 'package:ecommerce_app/src/view/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,11 +19,12 @@ class CategoryScreen extends StatelessWidget {
       init: Get.find<CategoryController>(),
       builder: (controller) {
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            title: Text(
-              "Categories",
-              style: GoogleFonts.lato(color: Colors.black),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(AppBar().preferredSize.height),
+            child: const CustomAppBarWidget(
+              title: 'Categories',
+              leadingBack: false,
+              centerTitle: true,
             ),
           ),
           body: !controller.isLoading.value
@@ -42,14 +44,18 @@ class CategoryScreen extends StatelessWidget {
 
                       return InkWell(
                         onTap: () {
-                          Get.to(() => ProductByCategoryScreen(categoryId: model.id,title: model.title,));
+                          Get.to(() => ProductByCategoryScreen(
+                                categoryId: model.id,
+                                title: model.title,
+                              ));
                         },
                         child: Card(
                           elevation: 20,
-                          shadowColor: AppConstant().kPrimaryColor.withOpacity(0.2),
+                          shadowColor:
+                              AppConstant().kPrimaryColor.withOpacity(0.2),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadiusDirectional.circular(15)
-                          ),
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(15)),
                           child: Stack(
                             alignment: AlignmentDirectional.center,
                             children: [

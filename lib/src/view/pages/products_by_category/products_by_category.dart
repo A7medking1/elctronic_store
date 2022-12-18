@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/src/view/pages/home_screen/home_screen.dart';
+import 'package:ecommerce_app/src/view/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,8 +20,9 @@ class ProductByCategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.find<ProductsController>().getProductByCategory(categoryId);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title.toUpperCase()),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(AppBar().preferredSize.height),
+        child: CustomAppBarWidget(title: title, leadingBack: true,centerTitle: true,),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),

@@ -1,9 +1,9 @@
+import 'package:ecommerce_app/src/view/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/app_constant.dart';
 import '../../widgets/build_grid_view_product.dart';
-import '../home_screen/home_screen.dart';
 import '../home_screen/products_controller.dart';
 import '../product_detail_screen/product_detail_screen.dart';
 
@@ -11,15 +11,15 @@ class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Favorites",
-          style: TextStyle(color: Colors.black),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(AppBar().preferredSize.height),
+        child: const CustomAppBarWidget(
+          title: 'Favorites',
+          leadingBack: false,
+          centerTitle: true,
         ),
-        backgroundColor: Colors.white,
       ),
       body: GetBuilder<ProductsController>(
         init: Get.find<ProductsController>(),
@@ -45,8 +45,8 @@ class FavoriteScreen extends StatelessWidget {
                         return InkWell(
                           onTap: () {
                             Get.to(() => ProductDetailScreen(
-                                productModel:
-                                controller.favoriteProductsModel[index].product));
+                                productModel: controller
+                                    .favoriteProductsModel[index].product));
                           },
                           // hoverColor: AppConstant().kPrimaryColor,
                           //highlightColor: AppConstant().kPrimaryColor,
