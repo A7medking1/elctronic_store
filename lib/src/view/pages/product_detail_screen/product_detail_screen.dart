@@ -23,7 +23,7 @@ class ProductDetailScreen extends StatelessWidget {
         preferredSize: Size.fromHeight(AppBar().preferredSize.height),
         child: CustomAppBarWidget(
           title: "",
-          actions: [
+          actions:
             GetBuilder(
               init: Get.find<ProductsController>(),
               builder: (controller) => InkWell(
@@ -31,7 +31,7 @@ class ProductDetailScreen extends StatelessWidget {
                   controller.changeFavorite(productModel.id);
                 },
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.only(end: 20, top: 10),
+                  padding: const EdgeInsetsDirectional.only(end: 10, top: 10),
                   child: CircleAvatar(
                     backgroundColor: controller.favorites[productModel.id]!
                         ? Colors.deepOrange
@@ -46,7 +46,6 @@ class ProductDetailScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ],
           leadingBack: true,
         ),
       ),

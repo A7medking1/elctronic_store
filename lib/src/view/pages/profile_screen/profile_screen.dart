@@ -13,7 +13,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(
-      init: Get.find<ProfileController>(),
+      init: Get.find<ProfileController>() ,
       builder: (controller) {
         return !controller.isLoading.value
             ? Scaffold(

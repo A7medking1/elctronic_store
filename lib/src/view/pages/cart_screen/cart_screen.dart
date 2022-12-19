@@ -21,6 +21,7 @@ class CartScreen extends StatelessWidget {
           title: 'Cart Screen',
           centerTitle: true,
           leadingBack: true,
+          isCartScreen: true,
         ),
       ),
       body: GetBuilder<CartController>(
@@ -30,178 +31,198 @@ class CartScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (controller.cartsModel!.data.isEmpty) {
-            return Center(
-              child: Image(
-                width: 250,
-                height: 250,
-                color: AppConstant().kPrimaryColor,
-                image: const AssetImage(
-                  'assets/icons/cart.png',
+            return Column(
+              children: [
+                Center(
+                  child: Image(
+                    width: 250,
+                    height: 250,
+                    color: AppConstant().kPrimaryColor,
+                    image: const AssetImage(
+                      'assets/icons/cart.png',
+                    ),
+                  ),
                 ),
-              ),
+                const SizedBox(
+                  height: 60,
+                ),
+                FloatingActionButton(
+                  onPressed: () => controller.getCart(),
+                  child: const Icon(Icons.refresh_outlined),
+                )
+              ],
             );
           }
-
-          return Column(
-            children: [
-              Expanded(
-                flex: 2,
-                child: ListView.builder(
-                  itemBuilder: (context, index) {
-                    final cartModel = controller.cartsModel!.data[index];
-                    return Dismissible(
-                      key: ValueKey(cartModel.id),
-                      direction: DismissDirection.endToStart,
-                      onDismissed: (DismissDirection decoration) {
-                        controller.deleteProductFromCart(cartModel.id);
-                      },
-                      background: Container(
-                        color: Colors.red,
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.only(end: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: const [
-                              Icon(
-                                Icons.delete,
-                                size: 40,
-                              ),
-                            ],
+          return RefreshIndicator(
+            displacement: 100,
+            onRefresh: () async => controller.getCart(),
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      final cartModel = controller.cartsModel!.data[index];
+                      return Dismissible(
+                        key: ValueKey(cartModel.id),
+                        direction: DismissDirection.endToStart,
+                        onDismissed: (DismissDirection decoration) {
+                          controller.deleteProductFromCart(cartModel.id);
+                        },
+                        background: Container(
+                          color: Colors.red,
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.only(end: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: const [
+                                Icon(
+                                  Icons.delete,
+                                  size: 40,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      child: InkWell(
-                        onTap: (){
-                          Get.to(() => ProductDetailScreen(productModel: cartModel.product));
-                        },
-                        child: Card(
-                          elevation: 20,
-                          shadowColor:
-                              AppConstant().kPrimaryColor.withOpacity(0.1),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadiusDirectional.circular(15)),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.all(15),
-                            child: SizedBox(
-                              height: 100.0,
-                              child: Row(
-                                children: [
-                                  CachedImages(
-                                    imageUrl: ApiConstant.imagePath(
-                                        cartModel.product.image),
-                                    fit: BoxFit.contain,
-                                  ),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Text(
-                                          cartModel.product.title,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            TextButton(
-                                              onPressed: () {
-                                                controller.reduceProductInCart(
-                                                    cartModel.id);
-                                              },
-                                              child: const Icon(
-                                                Icons.remove,
-                                                size: 25,
-                                              ),
-                                            ),
-                                            Text(
-                                              cartModel.quantity.toString(),
-                                              style:
-                                                  const TextStyle(fontSize: 25),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                controller.increaseProductInCart(
-                                                    cartModel.id);
-                                              },
-                                              child:
-                                                  const Icon(Icons.add, size: 25),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                        child: InkWell(
+                          onTap: () {
+                            Get.to(() => ProductDetailScreen(
+                                productModel: cartModel.product));
+                          },
+                          child: Card(
+                            elevation: 20,
+                            shadowColor:
+                                AppConstant().kPrimaryColor.withOpacity(0.1),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadiusDirectional.circular(15)),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.all(15),
+                              child: SizedBox(
+                                height: 100.0,
+                                child: Row(
+                                  children: [
+                                    CachedImages(
+                                      imageUrl: ApiConstant.imagePath(
+                                          cartModel.product.image),
+                                      fit: BoxFit.contain,
                                     ),
-                                  ),
-                                ],
+                                    const SizedBox(
+                                      width: 15,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text(
+                                            cartModel.product.title,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  controller
+                                                      .reduceProductInCart(
+                                                          cartModel.id);
+                                                },
+                                                child: const Icon(
+                                                  Icons.remove,
+                                                  size: 25,
+                                                ),
+                                              ),
+                                              Text(
+                                                cartModel.quantity.toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 25),
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  controller
+                                                      .increaseProductInCart(
+                                                          cartModel.id);
+                                                },
+                                                child: const Icon(Icons.add,
+                                                    size: 25),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                  itemCount: controller.cartsModel!.data.length,
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: const Text(
-                          'old Price',
-                          style: TextStyle(
-                            fontSize: 22,
-                          ),
-                        ),
-                        trailing: Text(
-                          '${controller.cartsModel!.totalPriceOld}',
-                          style: const TextStyle(
-                              fontSize: 20,
-                              decoration: TextDecoration.lineThrough),
-                        ),
-                      ),
-                      const Divider(),
-                      ListTile(
-                        title: Text(
-                          'total Price',
-                          style: TextStyle(
-                            fontSize: 22,
-                            color: AppConstant().kPrimaryColor,
-                          ),
-                        ),
-                        trailing: Text(
-                          controller.cartsModel!.totalPrice.toString(),
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: AppConstant().kPrimaryColor,
-                          ),
-                        ),
-                      ),
-                      const Divider(),
-                      DefaultButton(
-                        text: 'Check Out',
-                        press: () {},
-                      )
-                    ],
+                      );
+                    },
+                    itemCount: controller.cartsModel!.data.length,
                   ),
                 ),
-              ),
-            ],
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: const Text(
+                            'old Price',
+                            style: TextStyle(
+                              fontSize: 22,
+                            ),
+                          ),
+                          trailing: Text(
+                            '${controller.cartsModel!.totalPriceOld}',
+                            style: const TextStyle(
+                                fontSize: 20,
+                                decoration: TextDecoration.lineThrough),
+                          ),
+                        ),
+                        const Divider(),
+                        ListTile(
+                          title: Text(
+                            'total Price',
+                            style: TextStyle(
+                              fontSize: 22,
+                              color: AppConstant().kPrimaryColor,
+                            ),
+                          ),
+                          trailing: Text(
+                            controller.cartsModel!.totalPrice
+                                .round()
+                                .toString(),
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: AppConstant().kPrimaryColor,
+                            ),
+                          ),
+                        ),
+                        const Divider(),
+                        DefaultButton(
+                          text: 'Check Out',
+                          press: () {},
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),

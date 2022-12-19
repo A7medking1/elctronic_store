@@ -22,8 +22,7 @@ class HomeScreen extends StatelessWidget {
         child: CustomAppBarWidget(
           title: 'Ecommerce App',
           leadingBack: false,
-          actions: [
-            Padding(
+          actions: Padding(
               padding: const EdgeInsets.all(8.0),
               child: IconButton(
                 onPressed: () => Get.to(() => SearchScreen()),
@@ -34,18 +33,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: IconButton(
-                onPressed: () => Get.to(() => const CartScreen()),
-                icon: Icon(
-                  Icons.shopping_cart_outlined,
-                  color: AppConstant().kPrimaryColor,
-                  size: 30,
-                ),
-              ),
-            ),
-          ],
+
         ),
       ),
       body: Padding(
