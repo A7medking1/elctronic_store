@@ -22,3 +22,5 @@ class AuthRepo {
         url: ApiConstant.login, data: loginModel.toJson());
   }
 }
+
+

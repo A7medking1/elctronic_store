@@ -16,7 +16,7 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CategoryController>(
-      init: Get.find<CategoryController>(),
+      init: Get.put(CategoryController(Get.find())),
       builder: (controller) {
         return Scaffold(
           appBar: PreferredSize(

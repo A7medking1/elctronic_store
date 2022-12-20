@@ -16,7 +16,6 @@ void main() async {
   print(token);
   ApiClient.init();
 
-
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -24,8 +23,7 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget
-{
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
@@ -34,9 +32,10 @@ class MyApp extends StatelessWidget
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         appBarTheme: AppBarTheme(
-            elevation: 0.0,
-            backgroundColor: Colors.white,
-            iconTheme: IconThemeData(color: AppConstant().kPrimaryColor)),
+          elevation: 0.0,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: AppConstant().kPrimaryColor),
+        ),
         scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.deepOrange,
       ),

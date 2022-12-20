@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/size_config.dart';
 import 'package:ecommerce_app/src/core/app_constant.dart';
-import 'package:ecommerce_app/src/view/pages/cart_screen/cart_screen.dart';
+import 'package:ecommerce_app/src/view/pages/cart_screen/cart_controller.dart';
 import 'package:ecommerce_app/src/view/pages/home_screen/products_controller.dart';
 import 'package:ecommerce_app/src/view/pages/product_detail_screen/product_detail_screen.dart';
 import 'package:ecommerce_app/src/view/pages/search_screen/search_screen.dart';
@@ -10,12 +10,19 @@ import 'package:get/get.dart';
 import '../../widgets/build_grid_view_product.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_slider.dart';
+import '../category_screen/category_controller.dart';
+import '../profile_screen/profile_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    //Get.put(ProfileController(Get.find())).getUser();
+    //Get.put(ProductsController(Get.find())).getFavorites();
+   // Get.put(ProductsController(Get.find())).getProducts();
+    //Get.put(CategoryController(Get.find())).getCategory();
+    Get.put(CartController(Get.find())).getCart() ;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(AppBar().preferredSize.height),

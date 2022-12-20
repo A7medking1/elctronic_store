@@ -187,7 +187,7 @@ class CartScreen extends StatelessWidget {
                             ),
                           ),
                           trailing: Text(
-                            '${controller.cartsModel!.totalPriceOld}',
+                            '${controller.cartsModel!.totalPriceOld.roundToDouble()}',
                             style: const TextStyle(
                                 fontSize: 20,
                                 decoration: TextDecoration.lineThrough),
@@ -204,7 +204,7 @@ class CartScreen extends StatelessWidget {
                           ),
                           trailing: Text(
                             controller.cartsModel!.totalPrice
-                                .round()
+                                .roundToDouble()
                                 .toString(),
                             style: TextStyle(
                               fontSize: 20,

@@ -36,9 +36,9 @@ class AuthController extends GetxController {
       Get.put(ProductsController(Get.find())).getFavorites();
       Get.put(ProductsController(Get.find())).getProducts();
       Get.put(CategoryController(Get.find())).getCategory();
-      Get.put(CartController(Get.find())).getCart() ;
+     // Get.put(CartController(Get.find())).getCart() ;
       //Get.find<ProductsController>().getProducts();
-     // Get.find<CategoryController>().getCategory();
+      Get.find<CategoryController>().getCategory();
 
       Get.offAll(() => const AppLayout());
     } else {

@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/src/view/pages/cart_screen/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -50,35 +51,39 @@ class CustomAppBarWidget extends StatelessWidget {
       actions: [
         !isCartScreen!
             ? Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Stack(
-            alignment: AlignmentDirectional.topEnd,
-            children: [
-              IconButton(
-                onPressed: () => Get.to(() => const CartScreen()),
-                icon: Icon(
-                  Icons.shopping_cart_outlined,
-                  color: AppConstant().kPrimaryColor,
-                  size: 30,
+                padding: const EdgeInsets.all(10.0),
+                child: Stack(
+                  alignment: AlignmentDirectional.topEnd,
+                  children: [
+                    IconButton(
+                      onPressed: () => Get.to(() => const CartScreen()),
+                      icon: Icon(
+                        Icons.shopping_cart_outlined,
+                        color: AppConstant().kPrimaryColor,
+                        size: 30,
+                      ),
+                    ),
+                    GetBuilder<CartController>(
+                      init: Get.put(CartController(Get.find())),
+                      builder: (controller) =>  !controller.isLoading.value ? Positioned(
+                          child: Text(
+                        //'0'
+                         controller
+                          .cartsModel!
+                          .data
+                          .length
+                          .toString() ??
+                          ''
+                        ,
+                        style: const TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.w800),
+                      )) : Center(child: const CircularProgressIndicator()),
+                    ),
+                  ],
                 ),
-              ),
-              const Positioned(
-                  child: Text( '0'
-                   /* Get.put(CartController(Get.find()))
-                        .cartsModel!
-                        .data
-                        .length
-                        .toString() ??
-                        ''*/,
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w800),
-                  )),
-            ],
-          ),
-        )
+              )
             : const SizedBox().marginZero,
         actions ?? const SizedBox().marginZero,
-
       ],
     );
   }
