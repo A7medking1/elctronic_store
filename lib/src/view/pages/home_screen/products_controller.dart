@@ -27,6 +27,7 @@ class ProductsController extends GetxController
   void getProducts() async {
     isLoading.value = true;
     update();
+    print('get');
     final result = await productsRepo.getProducts(1);
 
     if (result.statusCode == 200) {

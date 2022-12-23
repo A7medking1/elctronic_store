@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import '../../widgets/cached_image_network.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/default_button.dart';
+import '../checkout_screen/checkout_screen.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -215,7 +216,7 @@ class CartScreen extends StatelessWidget {
                         const Divider(),
                         DefaultButton(
                           text: 'Check Out',
-                          press: () {},
+                          press: () => Get.to(()=> CheckOutScreen()),
                         )
                       ],
                     ),

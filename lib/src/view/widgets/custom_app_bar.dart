@@ -65,19 +65,16 @@ class CustomAppBarWidget extends StatelessWidget {
                     ),
                     GetBuilder<CartController>(
                       init: Get.put(CartController(Get.find())),
-                      builder: (controller) =>  !controller.isLoading.value ? Positioned(
-                          child: Text(
-                        //'0'
-                         controller
-                          .cartsModel!
-                          .data
-                          .length
-                          .toString() ??
-                          ''
-                        ,
-                        style: const TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.w800),
-                      )) : Center(child: const CircularProgressIndicator()),
+                      builder: (controller) => !controller.isLoading.value
+                          ? Positioned(
+                              child: Text(
+                              //'0'
+                              controller.cartsModel!.data.length.toString(),
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w800),
+                            ))
+                          : const Center(child: CircularProgressIndicator()),
                     ),
                   ],
                 ),
